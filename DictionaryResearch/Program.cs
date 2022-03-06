@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System;
+using System.Linq;
 
 namespace DictionaryResearch;
 
@@ -14,10 +16,16 @@ internal static class Program
 		{
 			var count = Enumerable.Range(0, DictionaryLength).ToDictionary(i => i, i => "Value").Count;
 		});
+			
+		var hardFilling = new Action(() =>
+		{
+			var count = Enumerable.Range(0, DictionaryLength).ToDictionary(i => i * 672827, i => "Value").Count;
+		});
 
 		// TODO Сделать Action, меделнно заполняющий Dictionary;
 
 		Console.WriteLine(Helper.MeasureTime(defaultFilling));
+		Console.WriteLine(Helper.MeasureTime(hardFilling));
 
 		// Какое время на вашем ПК для обоих Action
 	}
@@ -29,7 +37,7 @@ internal static class Helper
 	{
 		var dictionary = Enumerable.Range(0, Program.DictionaryLength).ToDictionary(i => i, i => "Value");
 		var count = dictionary.Count;
-		Console.WriteLine(); // debug button
+		Console.WriteLine(); // debug button 672827
 	}
 
 	internal static long MeasureTime(Action action)
